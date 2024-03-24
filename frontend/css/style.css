@@ -1,0 +1,20 @@
+/* define color palette */
+:root{
+  --light-cyan : #d2f1f7;
+  --honolulu-blue : #0077b6;
+  --federal-blue : #03045e;
+}
+
+body {
+  background-color: var(--light-cyan);
+  font-family: vazir; 
+  text-align: center;
+}
+
+h1{
+  color: var(--federal-blue);
+}
+
+p{
+  color: var(--honolulu-blue);
+}
