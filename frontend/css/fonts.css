@@ -3,3 +3,13 @@
     font-family: vazir;
     src: url('../fonts/Vazir.ttf');
 }
+
+@font-face {
+    font-family: wonderbar;
+    src: url('../fonts/Wonderbar.otf');
+}
+
+@font-face {
+    font-family: yekan;
+    src: url('../fonts/BYekan.ttf');
+}
