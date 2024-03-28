@@ -5,11 +5,16 @@
 }
 
 @font-face {
-    font-family: wonderbar;
-    src: url('../fonts/Wonderbar.otf');
+    font-family: comicbd;
+    src: url('../fonts/COMICBD.TTF');
 }
 
 @font-face {
     font-family: yekan;
     src: url('../fonts/BYekan.ttf');
+}
+
+@font-face {
+    font-family: Blabeloo;
+    src: url('../fonts/Blabeloo.ttf');
 }
