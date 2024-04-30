@@ -235,11 +235,12 @@ li a:hover{
       #text-effect span:nth-of-type(2) {
       --color: var(--logo-blue);
       --index: 1;
-      font-family: comicbd;
+      
       }
       #text-effect span:nth-of-type(3) {
       --color: var(--red);
       --index: 2;
+      font-family: comicbd;
       }
 
 section{
@@ -352,6 +353,8 @@ footer{
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  margin-top: 100px; 
+  margin-bottom: -10px; 
 }
 
 .column{

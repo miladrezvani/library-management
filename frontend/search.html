@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link href="css/style.css" rel="stylesheet" />
+		<link href="css/fonts.css" rel="stylesheet" />
+		<link href="css/search.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<title>جست و جوی کتاب</title>
+	</head>
+<body>
+    <header>
+        <div id="menu-container" class="center">
+            <a href="index.html" id="logo-container">
+                <img src="images/logo2.png" id="logo">
+            </a>
+            
+            
+            <div id="right">
+                <ul class="menu">
+                    <li><a href="index.html">صفحه اصلی</a></li>
+                    <li><a class="active" href="search.html">جست و جو</a></li>
+                    <li><a href="">درباره ما</a></li>
+                </ul>
+            </div>
+            
+            <div style="flex: 1"></div>
+            
+            <div id="left">
+                <ul>
+                    <li><a id="enter" href="">ورود</a></li>
+                    <li><a id="sign" href="">ثبت نام</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    
+    <div id="container">
+        <header>
+            <div id="page-banner">
+                <h1 class="title">جست و جوی کتاب</h1>
+                <form id="search-books">
+                    <span class="submit"><i class="fa fa-search"></i></span>
+                    <input type="text" placeholder="جست و جو بر اساس عنوان" />
+                </form>
+	    	</div>
+	    </header>
+        
+	    <div id="book-list">
+            <h2 class="title">نتایج جست و جو</h2>
+            
+			<div class="clear"></div>
+            
+	    	<table>
+                <thead>
+                    <tr>
+                        <th >عنوان</th>
+						<th>نویسنده</th>
+						<th>اطلاعات نشر</th>
+						<th>سال چاپ</th>
+						<th>وضعیت موجودی</th>
+						<th>امانت</th>
+					</tr>
+				</thead>
+                
+				<tbody>
+                    <tr>
+                        <td>صد سال تنهایی</td>
+						<td>گابریل گارسیا مارکز</td>
+						<td>امیرکبیر</td>
+						<td>1396</td>
+						<td>موجود</td>
+						<td><button class="borrow">امانت</button></td>
+					</tr>
+                    
+					<tr>
+                        <td>پدر پولدار پدر فقیر</td>
+						<td>رابرت کیوساکی</td>
+						<td>راز نهان</td>
+						<td>1390</td>
+						<td>امانت</td>
+						<td>
+                            <button class="borrow" disabled style="cursor: not-allowed;" title="این کتاب در وضعیت امانت قرار دارد">امانت</button>
+						</td>
+					</tr>
+
+                    <tr>
+                        <td>وسعت یا عمق؟</td>
+						<td>دیوید اپستین</td>
+						<td>ترجمان علوم انسانی</td>
+						<td>2019</td>
+						<td>موجود</td>
+						<td><button class="borrow">امانت</button></td>
+					</tr>
+
+                    <tr>
+                        <td>بادبادک باز</td>
+						<td>خالد حسینی</td>
+						<td>انتشارات مروارید</td>
+						<td>1399</td>
+						<td>موجود</td>
+						<td><button class="borrow">امانت</button></td>
+					</tr>
+
+				</tbody>
+			</table>
+
+            <p style="display: none;text-align: center;">موردی یافت نشد!</p>
+	    </div>
+        
+		<div class="clear"></div>
+    </div>
+    
+    
+	<footer>
+        <div class="content-container">
+            <div class="column">
+                <a href="index.html"><img src="images/logo1.png" width="160" height="200"></a>
+                <h2>سامانه مدیریت کتابخانه Bookland</h2>
+            </div>
+            <div class="column">
+                <h1>&#9664 لینک های مفید</h1>
+                <ul>
+                    <li>
+                        <a href="https://www.samanpl.com" target="_blank"><i class="mar">&#128279</i>سامانه مدیریت کتابخانه های عمومی</a>
+                    </li>
+                    <li>
+                        <a href="https://www.iranpl.ir" target="_blank"><i class="mar">&#128279</i>نهاد کتابخانه‌های عمومی کشور</a>
+                    </li>
+                    <li>
+                        <a href="https://www.ketab.ir" target="_blank"><i class="mar">&#128279</i>خانه کتاب و ادبیات ایران</a>
+                    </li>
+                    <li>
+                        <a href="https://www.nlai.ir" target="_blank"><span class="mar">&#128279</span>سازمان اسناد و کتابخانه ملی ایران</a>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="column">
+                <h1>&#9664 ارتباط با ما</h1>
+                <ul>
+                    <li>
+                        <p style="font-size: 17px;"><span class="mar">&#128231</span>bookland@gmail.com</p>
+                    </li>
+                    <li>
+                        <p style="font-size: 17px; font-family: yekan;"><span class="mar">&#128222</span>09300000000</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+    <script src="js/search.js"></script>
+</body>
+</html>
