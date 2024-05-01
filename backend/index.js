@@ -199,3 +199,20 @@ app.get("/profile", async (req, res) => {
 app.listen(port, () => {
   console.log(`server is running on port ${port}`);
 });
+
+/**
+ * @openapi
+ * /statistics:
+ *  get:
+ *    tags:
+ *      - landing_page
+ *    description: This is an API to get statistics.
+ *    responses:
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ */
+app.get("/statistics", async (req, res) => {
+  res.json({ status: 200, usercount: await user.count() });
+});
