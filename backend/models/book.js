@@ -17,8 +17,7 @@ Book.init(
     },
     PublicationINFO: {
       type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
+
     },
     Year: {
       type: DataTypes.STRING,
