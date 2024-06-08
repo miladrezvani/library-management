@@ -24,7 +24,7 @@ auth.use("/", async (req, res, next) => {
       next();
     }
   } else {
-    res.json({ status: 401, result: "unauthorized" });
+    res.status(401).json({ status: 401, result: "unauthorized" });
   }
 });
 

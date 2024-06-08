@@ -4,10 +4,12 @@ const { v4: uuidv4 } = require("uuid");
 const bcrypt = require("bcrypt");
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUI = require("swagger-ui-express");
+const { Op } = require("sequelize");
 const auth = require("./utils/auth");
 const sequelize = require("./utils/sequelize");
 const user = require("./models/user");
 const session = require("./models/session");
+const book = require("./models/book");
 
 sequelize.sync().then(() => console.log("database is ready"));
 
@@ -81,9 +83,13 @@ app.use("/profile", auth);
  *            type: object
  */
 app.post("/register", async (req, res) => {
-  req.body.password = await bcrypt.hash(req.body.password, 10);
-  const foundUser = await user.findOne({ where: { email: req.body.email } });
+  const foundUser = await user.findOne({
+    where: {
+      [Op.or]: [{ username: req.body.username }, { email: req.body.email }],
+    },
+  });
   if (!foundUser) {
+    req.body.password = await bcrypt.hash(req.body.password, 10);
     user.create(req.body);
     const getID = await user.findOne({ where: { email: req.body.email } });
     const uuid = uuidv4();
@@ -93,9 +99,9 @@ app.post("/register", async (req, res) => {
     });
     await cookie.save();
     res.cookie("session_token", uuid, {});
-    res.json({ status: 200, result: req.body });
+    res.status(200).json({ status: 200, result: req.body });
   } else {
-    res.json({ status: 401, result: "user already exists" });
+    res.status(401).json({ status: 401, result: "user already exists" });
   }
 });
 
@@ -113,7 +119,7 @@ app.post("/register", async (req, res) => {
  *          schema:
  *            type: object
  *            properties:
- *              email:
+ *              username:
  *                type: string
  *                example:  admin@gmail.com
  *              password:
@@ -127,7 +133,9 @@ app.post("/register", async (req, res) => {
  */
 app.post("/login", async (req, res) => {
   const foundUser = await user.findOne({
-    where: { email: req.body.email },
+    where: {
+      [Op.or]: [{ username: req.body.username }, { email: req.body.username }],
+    },
   });
   if (foundUser) {
     const passUser = await bcrypt.compare(
@@ -142,12 +150,14 @@ app.post("/login", async (req, res) => {
       });
       await cookie.save();
       res.cookie("session_token", uuid, {});
-      res.json({ status: 200, result: cookie });
+      res.status(200).json({ status: 200, result: cookie });
     } else {
-      res.json({ status: 401, result: "password not matched" });
+      res
+        .status(401)
+        .json({ status: 401, result: "invalid email or password" });
     }
   } else {
-    res.json({ status: 401, result: "email does not exist" });
+    res.status(401).json({ status: 401, result: "invalid email or password" });
   }
 });
 
@@ -170,7 +180,9 @@ app.post("/logout", async (req, res) => {
   });
   await session.destroy({ where: { id: foundUser.id } });
   res.clearCookie("session_token", {});
-  res.json({ status: 200, result: "The user successfully logged out" });
+  res
+    .status(200)
+    .json({ status: 200, result: "The user successfully logged out" });
 });
 
 /**
@@ -193,7 +205,7 @@ app.get("/profile", async (req, res) => {
   const foundUser = await user.findOne({
     where: { id: foundSession.user_id },
   });
-  res.json({ status: 200, result: foundUser });
+  res.status(200).json({ status: 200, result: foundUser });
 });
 
 app.listen(port, () => {
@@ -214,5 +226,44 @@ app.listen(port, () => {
  *            type: object
  */
 app.get("/statistics", async (req, res) => {
-  res.json({ status: 200, usercount: await user.count() });
+  res.status(200).json({ status: 200, usercount: await user.count() });
+});
+
+/**
+ * @openapi
+ * /search:
+ *  post:
+ *    tags:
+ *      - search
+ *    description: You must provide a title of a book or an author's name to search.
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            properties:
+ *              search:
+ *                type: string
+ *                example:  شب
+ *    responses:
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ */
+app.post("/search", async (req, res) => {
+  const foundBooks = await book.findAll({
+    where: {
+      [Op.or]: [
+        { Title: { [Op.like]: `%${req.body.search}%` } },
+        { Author: { [Op.like]: `%${req.body.search}%` } },
+      ],
+    },
+  });
+  if (foundBooks[0] == null) {
+    res.status(404).json({ status: 404, result: "not found" });
+  } else {
+    res.status(200).json({ status: 200, result: foundBooks });
+  }
 });
