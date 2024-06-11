@@ -1,13 +1,23 @@
-# Created by https://www.toptal.com/developers/gitignore/api/vuejs
-# Edit at https://www.toptal.com/developers/gitignore?templates=vuejs
+.DS_Store
+node_modules
+/dist
 
-### Vuejs ###
-# Recommended template: Node.gitignore
 
-node_modules/
-dist/
-npm-debug.log
-yarn-error.log
+# local env files
+.env.local
+.env.*.local
 
-# End of https://www.toptal.com/developers/gitignore/api/vuejs
-1
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
