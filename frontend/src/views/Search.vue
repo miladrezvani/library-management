@@ -1,5 +1,5 @@
 <template>
-  <div id="container" v-if="info">
+  <div id="container">
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -8,8 +8,8 @@
       <div id="page-banner">
         <h1 class="title">جست و جوی کتاب</h1>
         <form id="search-books">
-          <span class="submit"><i class="fa fa-search"></i></span>
-          <input type="text" placeholder="جست و جو بر اساس عنوان" />
+          <span @click="searchBook" class="submit"><i class="fa fa-search"></i></span>
+          <input v-model="bookInput" type="text" placeholder="جست و جو بر اساس عنوان" />
         </form>
       </div>
     </header>
@@ -31,60 +31,28 @@
           </tr>
         </thead>
 
-        <tbody>
-          <tr>
-            <td>صد سال تنهایی</td>
-            <td>گابریل گارسیا مارکز</td>
-            <td>امیرکبیر</td>
-            <td>1396</td>
-            <td>موجود</td>
-            <td><button class="borrow">امانت</button></td>
+        <tbody >
+          <tr v-for="book in searchResult" :key="book.id">
+            <td>{{book.Title}}</td>
+            <td>{{book.Author}}</td>
+            <td>{{book.PublicationINFO}}</td>
+            <td>{{book.Year}}</td>
+            <td v-if="book.InventoryStatus">موجود</td>
+            <td v-else>ناموجود</td>
+            <td v-if="book.InventoryStatus"><button class="borrow">امانت</button></td>
+            <td v-else ><button class="borrow" disabled style="cursor:not-allowed">امانت</button></td>
           </tr>
 
-          <tr>
-            <td>پدر پولدار پدر فقیر</td>
-            <td>رابرت کیوساکی</td>
-            <td>راز نهان</td>
-            <td>1390</td>
-            <td>امانت</td>
-            <td>
-              <button
-                class="borrow"
-                disabled
-                style="cursor: not-allowed"
-                title="این کتاب در وضعیت امانت قرار دارد"
-              >
-                امانت
-              </button>
-            </td>
-          </tr>
-
-          <tr>
-            <td>وسعت یا عمق؟</td>
-            <td>دیوید اپستین</td>
-            <td>ترجمان علوم انسانی</td>
-            <td>2019</td>
-            <td>موجود</td>
-            <td><button class="borrow">امانت</button></td>
-          </tr>
-
-          <tr>
-            <td>بادبادک باز</td>
-            <td>خالد حسینی</td>
-            <td>انتشارات مروارید</td>
-            <td>1399</td>
-            <td>موجود</td>
-            <td><button class="borrow">امانت</button></td>
-          </tr>
+          
         </tbody>
       </table>
+      
+      <p v-if="error" style="text-align: center;font-size:30px">موردی یافت نشد!</p>
 
-      <p style="display: none; text-align: center">موردی یافت نشد!</p>
     </div>
 
     <div class="clear"></div>
 
-    <h1>{{ info.status }}</h1>
   </div>
 </template>
 
@@ -94,16 +62,40 @@ export default {
   data() {
     return {
       info: null,
+      bookInput: null,
+      searchResult: null,
+      response: null,
+      error: null
     };
   },
   mounted() {
-    axios
-      .post("/search", {
-        search: "شب",
-      })
-      .then((response) => console.log(response))
-      .catch((error) => console.log(error));
+
   },
+  methods:{
+    async searchBook(){
+
+      axios
+      .post("/search", {
+        search: this.bookInput
+      })
+      .then((response) => {
+        this.response = response.data.result
+        this.error = null
+      })
+      .catch((error) => {
+        this.error = error
+        this.response = null
+      });
+
+      sleep().then(() => { 
+        this.searchResult = JSON.parse(JSON.stringify(this.response))
+       });
+
+      function sleep() {
+       return new Promise(resolve => setTimeout(resolve, 500));
+      }
+    }
+  }
 };
 </script>
 

@@ -61,10 +61,6 @@ table {
     width: 100%;
 }
 
-
-tbody tr{
-    display: none;
-}
   
 th, td {
     text-align: center;
@@ -86,6 +82,7 @@ th {
     box-shadow: 0 2px 8px -1px rgb(198, 212, 255);
     background-color: #ffffff;
 }
+
 
 
 .submit{
