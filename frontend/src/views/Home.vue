@@ -24,7 +24,7 @@
               </div>
               <div class="static">
                   <h2>تعداد کل منابع</h2>
-                  <h3>12345</h3>
+                  <h3>{{books.length}}</h3>
               </div>
           </div>
 
@@ -40,58 +40,12 @@
       <div class="content-container" style="background-color: #fff;margin-bottom: 40px;">
           <h3 id="new-book-title">تازه های کتاب</h3>
           <div id="new-book-list">
-              <div class="book-box">
-                  <h5 class="box-title">پدر پولدار ، پدر فقیر</h5>
+              <div class="book-box" v-for="book in books.slice(0,6)" :key="book.id">
+                  <h5 class="box-title">{{book.Title}}</h5>
                   <ul>
-                      <li><span>نویسنده: </span>رابرت کیوساکی</li>
-                      <li><span>ناشر: </span>انتشارات راز نهان</li>
-                      <li><span>سال نشر: </span>1390</li>
-                      <li><span>دسته بندی: </span>روانشناسی</li>
-                  </ul>
-              </div>
-              <div class="book-box">
-                  <h5 class="box-title">وسعت یا عمق؟</h5>
-                  <ul>
-                      <li><span>نویسنده: </span>دیوید اپستین</li>
-                      <li><span>ناشر: </span>ترجمان علوم انسانی</li>
-                      <li><span>سال نشر: </span>2019</li>
-                      <li><span>دسته بندی: </span>روانشناسی</li>
-                  </ul>
-              </div>
-              <div class="book-box">
-                  <h5 class="box-title">شازده کوچولو</h5>
-                  <ul>
-                      <li><span>نویسنده: </span>آنتوان دوسنت اگزوپری</li>
-                      <li><span>ناشر: </span>شاپیگان کتاب</li>
-                      <li><span>سال نشر: </span>1395</li>
-                      <li><span>دسته بندی: </span>رمان</li>
-                  </ul>
-              </div>
-              <div class="book-box">
-                  <h5 class="box-title">بادبادک باز</h5>
-                  <ul>
-                      <li><span>نویسنده: </span>خالد حسینی</li>
-                      <li><span>ناشر: </span>انتشارات مروارید</li>
-                      <li><span>سال نشر: </span>1399</li>
-                      <li><span>دسته بندی: </span>رمان</li>
-                  </ul>
-              </div>
-              <div class="book-box">
-                  <h5 class="box-title">سبوی سبز سخن</h5>
-                  <ul>
-                      <li><span>نویسنده: </span>دکتر عبدالناصر نظریانی ، دکتر علیرضا مظفری ، دکتر عبدا... طلوعی آذر</li>
-                      <li><span>ناشر: </span>آیدین</li>
-                      <li><span>سال نشر: </span>1387</li>
-                      <li><span>دسته بندی: </span>ادبیات فارسی</li>
-                  </ul>
-              </div>
-              <div class="book-box">
-                  <h5 class="box-title">من عاشق امید شدم</h5>
-                  <ul>
-                      <li><span>نویسنده: </span>لو آندریا کالورت</li>
-                      <li><span>ناشر: </span>آذرگون</li>
-                      <li><span>سال نشر: </span>1402</li>
-                      <li><span>دسته بندی: </span>رمان</li>
+                      <li><span>نویسنده: </span>{{book.Author}}</li>
+                      <li><span>ناشر: </span>{{book.PublicationINFO}}</li>
+                      <li><span>سال نشر: </span>{{book.Year}}</li>
                   </ul>
               </div>
           </div>
@@ -101,12 +55,31 @@
 </template>
 
 <script>
-// @ is an alias to /src
-
+const axios = require("axios");
 
 export default {
   name: 'HomeView',
   components: {
+  },
+  data(){
+    return{
+        books: [],
+    }
+  },
+  mounted(){
+    axios
+      .post("/search", {
+        search: ''
+      })
+      .then((response) => {
+        this.books = JSON.parse(JSON.stringify(response.data.result))
+        this.error = null
+        console.log(this.books);
+      })
+      .catch((error) => {
+        console.log(error);
+        this.response = null
+      });
   }
 }
 </script>
