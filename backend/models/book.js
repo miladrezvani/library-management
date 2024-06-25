@@ -10,23 +10,22 @@ Book.init(
       primaryKey: true,
       unique: true,
     },
-    Title: {
+    title: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
     },
-    PublicationINFO: {
+    publication_info: {
       type: DataTypes.STRING,
-
     },
-    Year: {
+    year: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    Author: {
+    author: {
       type: DataTypes.STRING,
     },
-    InventoryStatus: {
+    inventory_status: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
     },
