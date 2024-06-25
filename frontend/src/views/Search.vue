@@ -33,16 +33,15 @@
 
         <tbody >
           <tr v-for="book in searchResult" :key="book.id">
-            <td>{{book.Title}}</td>
-            <td>{{book.Author}}</td>
-            <td>{{book.PublicationINFO}}</td>
-            <td>{{book.Year}}</td>
-            <td v-if="book.InventoryStatus">موجود</td>
+            <td>{{book.title}}</td>
+            <td>{{book.author}}</td>
+            <td>{{book.publication_info}}</td>
+            <td>{{book.year}}</td>
+            <td v-if="book.inventory_status">موجود</td>
             <td v-else>ناموجود</td>
-            <td v-if="book.InventoryStatus"><button class="borrow">امانت</button></td>
+            <td v-if="book.inventory_status"><button class="borrow">امانت</button></td>
             <td v-else ><button class="borrow" disabled style="cursor:not-allowed">امانت</button></td>
           </tr>
-
           
         </tbody>
       </table>

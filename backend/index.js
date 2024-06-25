@@ -10,11 +10,18 @@ const sequelize = require("./utils/sequelize");
 const user = require("./models/user");
 const session = require("./models/session");
 const book = require("./models/book");
+const borrow = require("./models/borrow");
 
 sequelize.sync().then(() => console.log("database is ready"));
 
 user.hasOne(session, {
   foreignKey: "user_id",
+});
+user.hasMany(borrow, {
+  foreignKey: "user_id",
+});
+book.hasOne(borrow, {
+  foreignKey: "book_id",
 });
 
 const app = express();
@@ -208,10 +215,6 @@ app.get("/profile", async (req, res) => {
   res.status(200).json({ status: 200, result: foundUser });
 });
 
-app.listen(port, () => {
-  console.log(`server is running on port ${port}`);
-});
-
 /**
  * @openapi
  * /statistics:
@@ -256,8 +259,8 @@ app.post("/search", async (req, res) => {
   const foundBooks = await book.findAll({
     where: {
       [Op.or]: [
-        { Title: { [Op.like]: `%${req.body.search}%` } },
-        { Author: { [Op.like]: `%${req.body.search}%` } },
+        { title: { [Op.like]: `%${req.body.search}%` } },
+        { author: { [Op.like]: `%${req.body.search}%` } },
       ],
     },
   });
@@ -266,4 +269,8 @@ app.post("/search", async (req, res) => {
   } else {
     res.status(200).json({ status: 200, result: foundBooks });
   }
+});
+
+app.listen(port, () => {
+  console.log(`server is running on port ${port}`);
 });
