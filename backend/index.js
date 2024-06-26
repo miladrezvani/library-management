@@ -271,6 +271,52 @@ app.post("/search", async (req, res) => {
   }
 });
 
+/**
+ * @openapi
+ * /borrow:
+ *  post:
+ *    tags:
+ *      - search
+ *    description: You must provide a book_id of a book.
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            properties:
+ *              book_id:
+ *                type: integer
+ *                example:  1
+ *    responses:
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ */
+app.post("/borrow", async (req, res) => {
+  const foundUser = await session.findOne({
+    where: { cookie: req.cookies.session_token },
+  });
+  const countBooks = await borrow.count({
+    where: { user_id: foundUser.user_id },
+  });
+  const foundBooks = await book.findOne({
+    where: { [Op.and]: [{ id: req.body.book_id }, { inventory_status: 1 }] },
+  });
+  if (countBooks < 5 && foundBooks) {
+    const borrowBook = await borrow.create({
+      user_id: foundUser.user_id,
+      book_id: req.body.book_id,
+    });
+    await foundBooks.update({ inventory_status: 0 });
+    await borrowBook.save();
+    res.status(200).json({ status: 200, result: "book borrowed" });
+  } else {
+    res.status(401).json({ status: 401, result: "unauthorized" });
+  }
+});
+
 app.listen(port, () => {
   console.log(`server is running on port ${port}`);
 });
