@@ -229,7 +229,20 @@ app.get("/profile", async (req, res) => {
  *            type: object
  */
 app.get("/statistics", async (req, res) => {
-  res.status(200).json({ status: 200, usercount: await user.count() });
+  const now = new Date();
+  const newbook = await book.count({
+    where: {
+      ["createdAt"]: {
+        [Op.gt]: now - 2592000000,
+      },
+    },
+  });
+  res.status(200).json({
+    status: 200,
+    usercount: await user.count(),
+    bookcount: await book.count(),
+    newbookcount: newbook,
+  });
 });
 
 /**
