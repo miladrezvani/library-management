@@ -198,7 +198,7 @@ app.post("/logout", async (req, res) => {
  *  get:
  *    tags:
  *      - user
- *    description: This is a test API for checking cookies.
+ *    description: This is an API for getting profile information.
  *    responses:
  *      content:
  *        application/json:
@@ -212,7 +212,16 @@ app.get("/profile", async (req, res) => {
   const foundUser = await user.findOne({
     where: { id: foundSession.user_id },
   });
-  res.status(200).json({ status: 200, result: foundUser });
+  res.status(200).json({
+    status: 200,
+    id: foundUser.id,
+    username: foundUser.username,
+    email: foundUser.email,
+    first_name: foundUser.first_name,
+    last_name: foundUser.last_name,
+    birthday: foundUser.birthday,
+    phone_number: foundUser.phone_number,
+  });
 });
 
 /**
