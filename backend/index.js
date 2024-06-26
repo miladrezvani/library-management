@@ -256,6 +256,27 @@ app.get("/statistics", async (req, res) => {
 
 /**
  * @openapi
+ * /new-books:
+ *  get:
+ *    tags:
+ *      - landing_page
+ *    description: This API gets new 6 books that are added to the website.
+ *    responses:
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ */
+app.get("/new-books", async (req, res) => {
+  const recentBooks = await book.findAll({
+    limit: 6,
+    order: [["createdAt", "DESC"]],
+  });
+  res.status(200).json({ status: 200, result: recentBooks });
+});
+
+/**
+ * @openapi
  * /search:
  *  post:
  *    tags:
