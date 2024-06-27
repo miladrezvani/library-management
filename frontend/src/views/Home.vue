@@ -16,7 +16,7 @@
               </div>
               <div class="static">
                   <h2>مجموع کاربران</h2>
-                  <h3>12345</h3>
+                  <h3>{{userCount}}</h3>
               </div>
           </div>
           <div class="card">
@@ -24,7 +24,7 @@
               </div>
               <div class="static">
                   <h2>تعداد کل منابع</h2>
-                  <h3>{{books.length}}</h3>
+                  <h3>{{bookCount}}</h3>
               </div>
           </div>
 
@@ -33,19 +33,19 @@
               </div>
               <div class="static">
                   <h2>منابع جدید</h2>
-                  <h3>12345</h3>
+                  <h3>{{newBookCount}}</h3>
               </div>
           </div>
       </div>
       <div class="content-container" style="background-color: #fff;margin-bottom: 40px;">
           <h3 id="new-book-title">تازه های کتاب</h3>
           <div id="new-book-list">
-              <div class="book-box" v-for="book in books.slice(0,6)" :key="book.id">
-                  <h5 class="box-title">{{book.Title}}</h5>
+              <div class="book-box" v-for="book in books" :key="book.id">
+                  <h5 class="box-title">{{book.title}}</h5>
                   <ul>
-                      <li><span>نویسنده: </span>{{book.Author}}</li>
-                      <li><span>ناشر: </span>{{book.PublicationINFO}}</li>
-                      <li><span>سال نشر: </span>{{book.Year}}</li>
+                      <li><span>نویسنده: </span>{{book.author}}</li>
+                      <li><span>ناشر: </span>{{book.publication_info}}</li>
+                      <li><span>سال نشر: </span>{{book.year}}</li>
                   </ul>
               </div>
           </div>
@@ -64,17 +64,29 @@ export default {
   data(){
     return{
         books: [],
+        userCount: 0,
+        bookCount: 0,
+        newBookCount: 0
     }
   },
   mounted(){
-    axios
-      .post("/search", {
-        search: ''
+
+      axios
+      .get("/statistics")
+      .then((response) => {
+        this.userCount = JSON.parse(JSON.stringify(response.data.usercount))
+        this.newBookCount = JSON.parse(JSON.stringify(response.data.newbookcount))
+        this.bookCount = JSON.parse(JSON.stringify(response.data.bookcount))
       })
+      .catch((error) => {
+        console.log(error);
+        this.response = null
+      });
+
+      axios
+      .get("/new-books")
       .then((response) => {
         this.books = JSON.parse(JSON.stringify(response.data.result))
-        this.error = null
-        console.log(this.books);
       })
       .catch((error) => {
         console.log(error);
