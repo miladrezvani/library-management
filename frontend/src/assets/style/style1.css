@@ -1,16 +1,4 @@
 
-@charset "UTF-8";
-@font-face {
-    font-family: 'Vazir';
-    src: url('../fonts/Vazir.eot');
-    src: local('../fonts/Vazir'), url('../fonts/Vazir.woff') format('woff'), url('../fonts/Vazir.ttf') format('truetype'), url('../fonts/Vazir.svg') format('svg');
-}
-
-* {
-    margin: 0;
-    padding: 0;
-}
-
 #header {
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/lib_profile.jpg");
     background-position: center center;
@@ -54,7 +42,7 @@ header .container-fluid {
 body {
     margin: 0 auto;
     direction: rtl;
-    font-family: 'Vazir';
+    font-family: vazir;
     background-color: #e2f0e6;
 }
 
@@ -86,7 +74,7 @@ main .container-fluid {
     border-radius: 3px;
     margin: 18px auto;
     color: #fff;
-    font-family: 'Vazir';
+    font-family: vazir;
 }
 
 
@@ -151,7 +139,7 @@ main .container-fluid {
   
   body, html {
     height: 100%;
-    font-family: 'Vazir';
+    font-family: vazir;
     direction: rtl;
   }
   
@@ -184,7 +172,7 @@ main .container-fluid {
   }
   
   .table100-head th{
-    font-family: 'Vazir';
+    font-family: vazir;
     font-size: 18px;
     color: #fff;
     line-height: 1.2;
@@ -192,7 +180,7 @@ main .container-fluid {
   }
   
   tbody tr {
-    font-family: 'Vazir';
+    font-family: vazir;
     font-size: 15px;
     color: #000000;
     line-height: 1.2;
