@@ -47,6 +47,8 @@ app.use(cookieParser());
 
 app.use("/logout", auth);
 app.use("/profile", auth);
+app.use("/borrowed", auth);
+app.use("/borrow", auth);
 
 /**
  * @openapi
@@ -222,6 +224,36 @@ app.get("/profile", async (req, res) => {
     birthday: foundUser.birthday,
     phone_number: foundUser.phone_number,
   });
+});
+
+/**
+ * @openapi
+ * /borrowed:
+ *  get:
+ *    tags:
+ *      - user
+ *    description: This is an API for getting borrowed books.
+ *    responses:
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ */
+app.get("/borrowed", async (req, res) => {
+  const foundSession = await session.findOne({
+    where: { cookie: req.cookies.session_token },
+  });
+  const borrowedBooks = await borrow.findAll({
+    where: { user_id: foundSession.user_id },
+  });
+  if (borrowedBooks[0] != null) {
+    const books = await book.findAll({
+      where: { id: { [Op.in]: borrowedBooks.map((b) => b.book_id) } },
+    });
+    res.status(200).json({ status: 200, result: books });
+  } else {
+    res.status(200).json({ status: 200, result: "empty" });
+  }
 });
 
 /**
