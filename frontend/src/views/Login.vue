@@ -9,7 +9,7 @@
                 <input type="password" v-model="passIn" placeholder="رمز عبور" required>
             </div>
             <div class="btn">
-                <button @click="submit" type="submit" class="btn">ورود</button>
+                <button @click="submit" type="button" class="btn">ورود</button>
                
             </div>
             <div class="register_link">

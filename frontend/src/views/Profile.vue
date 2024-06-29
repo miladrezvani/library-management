@@ -70,6 +70,6 @@ export default {
 <style>
     @import url(../assets/style/font-awesome.min.css);
     @import url(../assets/style/fonts.css);
-    @import url(../assets/style/style1.css);
+    @import url(../assets/style/Profile.css);
     @import url(../assets/style/style.css);
 </style>

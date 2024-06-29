@@ -20,7 +20,7 @@
         <div id="left">
             <ul>
                 <li><router-link to="/login">ورود</router-link></li>
-                <li><a id="sign" href="">ثبت نام</a></li>
+                <li><router-link id="sign" to="/signup">ثبت نام</router-link></li>
             </ul>
         </div>
     </div>
