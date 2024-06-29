@@ -2,9 +2,9 @@
 <div>
   <header>
     <div id="menu-container" class="center">
-        <a href="index.html" id="logo-container">
+        <router-link id="logo-container" to="/">
             <img src="../src/assets/images/logo2.png" id="logo">
-        </a>
+        </router-link>
     
 
         <div id="right">
