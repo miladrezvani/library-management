@@ -2,9 +2,9 @@
 <div>
   <header>
     <div id="menu-container" class="center">
-        <a href="index.html" id="logo-container">
+        <router-link id="logo-container" to="/">
             <img src="../src/assets/images/logo2.png" id="logo">
-        </a>
+        </router-link>
     
 
         <div id="right">
@@ -19,8 +19,8 @@
 
         <div id="left">
             <ul>
-                <li><a id="enter" href="">ورود</a></li>
-                <li><a id="sign" href="">ثبت نام</a></li>
+                <li><router-link to="/login">ورود</router-link></li>
+                <li><router-link id="sign" to="/signup">ثبت نام</router-link></li>
             </ul>
         </div>
     </div>

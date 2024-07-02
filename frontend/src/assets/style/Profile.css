@@ -1,0 +1,174 @@
+
+#header {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/lib_profile.jpg");
+    background-position: center center;
+    background-size: contain;
+    width: auto;
+    max-width: 1920px;
+    height: 450px;
+}
+
+header .container-fluid {
+    max-width: 1920px;
+}
+
+
+#profilePic {
+    display: block;
+    height: 200px;
+    width: 200px;
+    margin: 0 auto;
+    padding: 3px;
+    background-color: rgb(255, 255, 255);
+    position: relative;
+    top: 310px;
+    border-radius: 50%;
+    box-shadow: 0px 4px 20px black;
+}
+
+#subheader {
+    margin: 0px 30px 0 30px;
+}
+
+#name {
+    color: #ffffff;
+    font-size: 18px;
+    margin-top: 170px;
+    text-shadow: 0px 0px 5px black;
+}
+
+
+main .container-fluid {
+    max-width: 1920px;
+    overflow: hidden;
+    background-color: #262927;
+    padding-bottom: 500px;
+    margin: -40px 30px 0 30px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    box-shadow: 0px 0px 20px black;
+}
+
+
+.tab-content {
+    text-align: right;
+    margin-top: 150px;
+    width: 100%;
+    height:200px;
+    color: #a1a1a1;
+}
+
+.tab-content h3 {
+    background-color: #0077b6;
+    padding: 10px;
+    border-radius: 3px;
+    margin: 18px auto;
+    color: #fff;
+    font-family: vazir;
+}
+
+
+#about i {
+    margin-left: 10px;
+    margin-top: 20px;
+    color: #d8d8d8;
+}
+
+
+#about p {
+    font-size: 15px;
+    line-height: 30px;
+    width: 100%;
+    border-bottom: 0.5px solid;
+    padding-bottom: 10px;
+    align: justify;
+    -webkit-box-shadow: 0px 10px 10px -10px #0077b6;
+    -moz-box-shadow: 0px 10px 10px -10px #0077b6;
+    box-shadow: 0px 10px 10px -10px #0077b6;
+}
+
+
+   .col-md-3, .col-md-6 {
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+  
+  @media (min-width: 992px) {
+    .col-md-3, .col-md-6 {
+      float: right;
+    }
+    
+    .col-md-6 {
+      width: 50%;
+    }
+      
+    .col-md-3 {
+      width: 25%;
+    }
+   
+  }
+
+  
+  body, html {
+    height: 100%;
+    font-family: vazir;
+    direction: rtl;
+  }
+  
+  
+  
+  table {
+    border-spacing: 1;
+    border-collapse: collapse;
+    background: #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+  }
+  
+  table td, table th {
+    padding-right: 8px;
+  }
+  table thead tr {
+    height: 60px;
+    background: #1d83dc;
+  }
+  table tbody tr {
+    height: 50px;
+  }
+  
+  table td, table th {
+    text-align: right;
+  }
+  
+  .table100-head th{
+    font-family: vazir;
+    font-size: 18px;
+    color: #fff;
+    line-height: 1.2;
+    font-weight: unset;
+  }
+  
+  tbody tr {
+    font-family: vazir;
+    font-size: 15px;
+    color: #000000;
+    line-height: 1.2;
+    font-weight: unset;
+  }
+  
+  .column1 {
+    width: 260px;
+    padding-right: 40px;
+  }
+  
+  .column2 {
+    width: 160px;
+  }
+  
