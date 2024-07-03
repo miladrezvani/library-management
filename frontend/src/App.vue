@@ -11,7 +11,6 @@
             <ul class="menu">
                 <li><router-link to="/">صفحه اصلی</router-link></li>
                 <li><router-link to="/search">جست و جو</router-link></li>
-                <!-- <li><router-link to="/about">درباره ما</router-link></li> -->
             </ul>
         </div>
 
@@ -32,7 +31,7 @@
   <footer>
     <div class="content-container">
         <div class="column">
-            <a href="index.html"><img src="../src/assets/images/logo1.png" width="160" height="200"></a>
+            <router-link to="/"><img src="../src/assets/images/logo1.png" width="160" height="200"></router-link>
             <h2>سامانه مدیریت کتابخانه Bookland</h2>
         </div>
         <div class="column">

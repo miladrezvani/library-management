@@ -14,11 +14,11 @@
             </div>
             <div class="register_link">
                 <p> حساب کاربری ندارید؟
-                    <a href="#">ثبت نام</a>
+                    <router-link to="/Signup">ثبت نام</router-link>
                 </p>
             </div>
 
-            <div v-if="status != 200 && status != 0">
+            <div v-if="error">
                 <p style="color: red; font-size:20px">نام کاربری یا رمز عبور وارد شده اشتباه است!</p>
                 <p style="color: red">لطفا دوباره امتحان کنید</p>
             </div>
@@ -28,6 +28,8 @@
 </template>
 
 <script>
+import router from "@/router";
+
 const axios = require("axios");
 
 export default {
@@ -36,12 +38,13 @@ export default {
             userIn: null,
             passIn: null,
             result: null,
-            status: 0
-
+            userLog: false,
+            error: null
         }
     },
 
     methods:{
+
     async submit(){
         
       axios
@@ -51,18 +54,25 @@ export default {
       })
       .then((response) => {
         this.result = response
+        this.userLog = true
+        this.error = null
       })
       .catch((error) => {
+        this.userLog = false
         this.error = error
       });
 
+    
       sleep().then(() => { 
-        this.status = this.result.status
-       });
-
-      function sleep() {
-       return new Promise(resolve => setTimeout(resolve, 500));
-      }
+            if(this.userLog){
+            router.push('/profile')
+            }
+        });
+      
+        function sleep() {
+         return new Promise(resolve => setTimeout(resolve, 500));
+        }
+        
     }
   }
 }

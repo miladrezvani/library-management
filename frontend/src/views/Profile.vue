@@ -36,7 +36,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr v-for="book in bowrrowBooks" :key="book">
+                                            <tr v-for="book in borrowBooks" :key="book">
                                                 <td class="column1">{{book.title}}</td>
                                                 <td class="column2">{{book.author}}</td>
                                             </tr>
@@ -58,7 +58,7 @@ const axios = require("axios");
 export default {
     data(){
         return{
-            bowrrowBooks: [],
+            borrowBooks: [],
             profileInfo: {},
         }
   },
@@ -75,7 +75,7 @@ export default {
 
         axios.get("/borrowed")
         .then(response => {
-            this.bowrrowBooks = response.data.result  
+            this.borrowBooks = response.data.result  
         })
         .catch(error => {
             console.error(error)
