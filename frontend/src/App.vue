@@ -22,6 +22,13 @@
                 <li><router-link id="sign" to="/signup">ثبت نام</router-link></li>
             </ul>
         </div>
+        <div style="flex:1"></div>
+
+        <div>
+            <router-link to="/profile">
+                <img id="prof-menu" src="./assets/images/avatar.jpg" alt="">
+            </router-link>
+        </div>
     </div>
   </header>
   
