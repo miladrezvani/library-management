@@ -22,31 +22,23 @@
                         <div class="tab-content">
                             <div id="about" class="tab-pane fade in active">
                                 <h3>پروفایل کاربری</h3>
-                                <p><span><i class="fa fa-user-circle"></i><strong>نام:</strong></span> firstName </p>
-                                <p><span><i class="fa fa-user-circle"></i><strong>نام خانوادگی:</strong></span> lastName </p>
-                                <p><span><i class="fa fa-user-circle-o"></i><strong>نام کاربری:</strong></span> username </p>
-                                <p><span><i class="fa fa-calendar"></i><strong>تاریخ تولد:</strong></span> yyyy/mm/dd </p>
-                                <p><span><i class="fa fa-envelope"></i><strong>پست الکترونیک:</strong></span> example@gmail.com </p>
-                                <p><span><i class="fa fa-phone"></i><strong>شماره تلفن:</strong></span> 09123456789 </p>
+                                <p><span><i class="fa fa-user-circle"></i><strong>نام:</strong></span> {{profileInfo.first_name}} </p>
+                                <p><span><i class="fa fa-user-circle"></i><strong>نام خانوادگی:</strong></span> {{profileInfo.last_name}} </p>
+                                <p><span><i class="fa fa-user-circle-o"></i><strong>نام کاربری:</strong></span> {{profileInfo.username}} </p>
+                                <p><span><i class="fa fa-calendar"></i><strong>تاریخ تولد:</strong></span> {{profileInfo.birthday}} </p>
+                                <p><span><i class="fa fa-envelope"></i><strong>پست الکترونیک:</strong></span> {{profileInfo.email}} </p>
+                                <p><span><i class="fa fa-phone"></i><strong>شماره تلفن:</strong></span> {{profileInfo.phone_number}} </p>
                                     <table>
                                         <thead>
                                             <tr class="table100-head">
                                                 <th class="column1">نام کتاب</th>
-                                                <th class="column2">تاریخ امانت</th>
+                                                <th class="column2">نام نویسنده</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td class="column1">book1</td>
-                                                <td class="column2">date</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="column1">book2</td>
-                                                <td class="column2">date</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="column1">book3</td>
-                                                <td class="column2">date</td> 
+                                            <tr v-for="book in bowrrowBooks" :key="book">
+                                                <td class="column1">{{book.title}}</td>
+                                                <td class="column2">{{book.author}}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -62,7 +54,33 @@
 </template>
 
 <script>
+const axios = require("axios");
 export default {
+    data(){
+        return{
+            bowrrowBooks: [],
+            profileInfo: {},
+        }
+  },
+
+    mounted(){
+
+        axios.get("/profile")
+        .then(response => {
+            this.profileInfo = response.data
+        })
+        .catch(error =>{
+            console.error(error)
+        }),
+
+        axios.get("/borrowed")
+        .then(response => {
+            this.bowrrowBooks = response.data.result  
+        })
+        .catch(error => {
+            console.error(error)
+        })
+    }
 
 }
 </script>
