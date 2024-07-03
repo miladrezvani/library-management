@@ -102,7 +102,6 @@ export default {
       .get("/profile")
       .then((response) => {
         this.userLog = response.status == 200 ? true : false
-        console.log(this.userLog);
       }).catch((error) => {
         this.userLog = false
         console.log(error);

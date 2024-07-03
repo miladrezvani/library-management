@@ -1,5 +1,5 @@
 <template>
-    <body class="profile-page" data-spy="scroll" data-target=".navbar" data-offset="50">
+    <body v-if="userLog" class="profile-page" data-spy="scroll" data-target=".navbar" data-offset="50">
 
         <header id="header">			
             <img id="profilePic" src="../assets/images/avatar.jpg">
@@ -53,6 +53,12 @@
     
     
     </body>
+
+    <body v-else>
+        <div>
+            <h1 style="font-size:70px;">هیچ کاربری یافت نشد</h1>
+        </div>
+    </body>
 </template>
 
 <script>
@@ -64,6 +70,7 @@ export default {
         return{
             borrowBooks: [],
             profileInfo: {},
+            userLog: false
         }
   },
 
@@ -72,8 +79,10 @@ export default {
         axios.get("/profile")
         .then(response => {
             this.profileInfo = response.data
+            this.userLog = response.status == 200 ? true : false
         })
         .catch(error =>{
+            this.userLog = false
             console.error(error)
         }),
 
@@ -84,6 +93,7 @@ export default {
         .catch(error => {
             console.error(error)
         })
+
     },
     methods:{
         logout(){

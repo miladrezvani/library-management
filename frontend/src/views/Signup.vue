@@ -4,26 +4,34 @@
         <form id="signupForm">
             <label for="username">نام کاربری:</label>
             <input class="signup-in"  type="text" id="username" v-model="username" required>
+            <h5 id="warnUser" style="display:none;color:red"></h5>
 
             <label for="email">ایمیل:</label>
             <input class="signup-in" type="email" id="email" v-model="email" required>
+            <h5 id="warnEmail" style="display:none;color:red"></h5>
 
             <label for="firstname">نام:</label>
             <input class="signup-in" type="text" id="firstname" v-model="firstname" required>
+            <h5 id="warnFirst" style="display:none;color:red"></h5>
 
             <label for="lastname">نام خانوادگی:</label>
             <input class="signup-in" type="text" id="lastname" v-model="lastname" required>
+            <h5 id="warnLast" style="display:none;color:red"></h5>
 
             <label for="phone">شماره تلفن:</label>
             <input class="signup-in" type="tel" id="phone" v-model="phone" required>
+            <h5 id="warnPhone" style="display:none;color:red"></h5>
 
             <label for="birthdate">تاریخ تولد:</label>
             <input class="signup-in" type="date" id="birthdate" v-model="birthday" required>
+            <h5 id="warnBirth" style="display:none;color:red"></h5>
 
             <label for="password">رمز ورود:</label>
             <input class="signup-in" type="password" id="password" v-model="password" required>
+            <h5 id="warnPassword" style="display:none;color:red"></h5>
 
             <button id="signup-but" @click="signup" type="button">ثبت‌ نام</button>
+
         </form>
         <p id="message"></p>
     </div>
@@ -50,34 +58,69 @@ export default {
     methods:{
 
         signup(){
+            let emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
-            axios
-            .post("/register", {
-                username: this.username,
-                email: this.email,
-                password: this.password,
-                first_name: this.firstname,
-                last_name: this.lastname,
-                birthday: this.birthday,
-                phone_number: this.phone
-            })
-            .then((response) => {
-                this.result = response
-                this.userReg = true
-            })
-            .catch(() => {
-                this.userReg = false
-            });
+            if(this.username == ''){
+                document.getElementById('warnUser').innerHTML = "نام کاربری خود را وارد کنید!"
+                document.getElementById('warnUser').style.display = 'inline-block'
+            }
+            if(this.email == '' || !emailPattern.test(email)){
+                document.getElementById('warnEmail').innerHTML = "ایمیل خود را صحیح وارد کنید!"
+                document.getElementById('warnEmail').style.display = 'inline-block'
+            }
+            if(this.firstname == ''){
+                document.getElementById('warnFirst').innerHTML = "نام خود را صحیح وارد کنید!"
+                document.getElementById('warnFirst').style.display = 'inline-block'
+            }
+            if(this.lastname == ''){
+                document.getElementById('warnLast').innerHTML = "نام خانوادگی خود را صحیح وارد کنید!"
+                document.getElementById('warnLast').style.display = 'inline-block'
+            }
+            if(this.phone == ''){
+                document.getElementById('warnPhone').innerHTML = "شماره تلفن خود را صحیح وارد کنید!"
+                document.getElementById('warnPhone').style.display = 'inline-block'
+            }
+            if(this.birthday == ''){
+                document.getElementById('warnBirth').innerHTML = "تاریخ تولد خود را صحیح وارد کنید!"
+                document.getElementById('warnBirth').style.display = 'inline-block'
+            }
+            if(this.password == ''){
+                document.getElementById('warnPassword').innerHTML = "رمز عبور خود را صحیح وارد کنید!"
+                document.getElementById('warnPassword').style.display = 'inline-block'
+            }else
+            if(this.password.length < 6){
+                document.getElementById('warnPassword').innerHTML = "رمز عبور باید بیشتر از 6 کاراکتر باشد!"
+                document.getElementById('warnPassword').style.display = 'inline-block'
+            }
+            else {
+                axios
+                .post("/register", {
+                    username: this.username,
+                    email: this.email,
+                    password: this.password,
+                    first_name: this.firstname,
+                    last_name: this.lastname,
+                    birthday: this.birthday,
+                    phone_number: this.phone
+                })
+                .then((response) => {
+                    this.result = response
+                    this.userReg = true
+                })
+                .catch(() => {
+                    this.userReg = false
+                });
 
-            sleep().then(() => { 
-             if(this.userReg){
-                alert('ثبت نام شما با موفقیت انجام شد')
-                router.push('/profile')
-              }
-            });
-      
-            function sleep() {
-                return new Promise(resolve => setTimeout(resolve, 500));
+                sleep().then(() => { 
+                if(this.userReg){
+                    alert('ثبت نام شما با موفقیت انجام شد')
+                    router.push('/profile')
+                }
+                });
+        
+                function sleep() {
+                    return new Promise(resolve => setTimeout(resolve, 500));
+                }
             }
 
         }
