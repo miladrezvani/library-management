@@ -42,6 +42,8 @@
                                             </tr>
                                         </tbody>
                                     </table>
+
+                                    <button id="logoutBut" @click="logout">خروج از حساب کاربری</button>
                             </div>
                         </div>
                     </div>
@@ -54,6 +56,8 @@
 </template>
 
 <script>
+import router from "@/router";
+
 const axios = require("axios");
 export default {
     data(){
@@ -80,6 +84,18 @@ export default {
         .catch(error => {
             console.error(error)
         })
+    },
+    methods:{
+        logout(){
+            axios
+            .post("/logout", {
+            })
+            .then(() => {
+                router.push('/')
+            }).catch((error) => {
+            console.log(error);
+            })
+        }
     }
 
 }
