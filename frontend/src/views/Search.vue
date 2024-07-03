@@ -39,7 +39,7 @@
             <td>{{book.year}}</td>
             <td v-if="book.inventory_status">موجود</td>
             <td v-else>ناموجود</td>
-            <td v-if="book.inventory_status"><button class="borrow">امانت</button></td>
+            <td v-if="book.inventory_status" @click="borrow(book)"><button class="borrow">امانت</button></td>
             <td v-else ><button class="borrow" disabled style="cursor:not-allowed">امانت</button></td>
           </tr>
           
@@ -64,7 +64,9 @@ export default {
       bookInput: null,
       searchResult: null,
       response: null,
-      error: null
+      error: null,
+      borrowRes: '',
+      userLog: false
     };
   },
   mounted() {
@@ -90,9 +92,46 @@ export default {
         this.searchResult = JSON.parse(JSON.stringify(this.response))
        });
 
-      function sleep() {
-       return new Promise(resolve => setTimeout(resolve, 500));
+       function sleep() {
+        return new Promise(resolve => setTimeout(resolve, 500));
+       }
+      },
+      
+    async borrow (book){
+      axios
+      .get("/profile")
+      .then((response) => {
+        this.userLog = response.status == 200 ? true : false
+        console.log(this.userLog);
+      }).catch((error) => {
+        this.userLog = false
+        console.log(error);
+      })
+
+
+
+      sleep().then(() => { 
+
+        if(this.userLog){
+        axios
+        .post("/borrow", {
+          book_id: book.id
+        })
+        .then((response) => {
+          this.borrowRes = response.data.status
+          this.$router.go(0)
+          alert(`کتاب (${book.title}) برای شما رزرو شد`)
+        }).catch((error) => {
+          console.log(error);
+        })
       }
+      else
+        alert('ابتدا وارد حساب کاربری خود شوید')
+       });
+
+       function sleep() {
+        return new Promise(resolve => setTimeout(resolve, 500));
+       }
     }
   }
 };
