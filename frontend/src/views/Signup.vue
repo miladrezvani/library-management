@@ -51,48 +51,53 @@ export default {
             lastname: '',
             phone: 0,
             birthday: '',
-            password: '',
-            userReg: false
+            password: ''
         }
     },
     methods:{
 
         signup(){
-            let emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
             if(this.username == ''){
                 document.getElementById('warnUser').innerHTML = "نام کاربری خود را وارد کنید!"
                 document.getElementById('warnUser').style.display = 'inline-block'
-            }
-            if(this.email == '' || !emailPattern.test(email)){
-                document.getElementById('warnEmail').innerHTML = "ایمیل خود را صحیح وارد کنید!"
+            }else {document.getElementById('warnUser').style.display = 'none'}
+            
+            if(this.email == ''){
+                document.getElementById('warnEmail').innerHTML = "ایمیل خود را وارد کنید!"
                 document.getElementById('warnEmail').style.display = 'inline-block'
-            }
+            }else {document.getElementById('warnEmail').style.display = 'none'}
+
             if(this.firstname == ''){
                 document.getElementById('warnFirst').innerHTML = "نام خود را صحیح وارد کنید!"
                 document.getElementById('warnFirst').style.display = 'inline-block'
-            }
+            }else {document.getElementById('warnFirst').style.display = 'none'}
+
             if(this.lastname == ''){
                 document.getElementById('warnLast').innerHTML = "نام خانوادگی خود را صحیح وارد کنید!"
                 document.getElementById('warnLast').style.display = 'inline-block'
-            }
+            }else {document.getElementById('warnLast').style.display = 'none'}
+
             if(this.phone == ''){
                 document.getElementById('warnPhone').innerHTML = "شماره تلفن خود را صحیح وارد کنید!"
                 document.getElementById('warnPhone').style.display = 'inline-block'
-            }
+            }else {document.getElementById('warnPhone').style.display = 'none'}
+
             if(this.birthday == ''){
                 document.getElementById('warnBirth').innerHTML = "تاریخ تولد خود را صحیح وارد کنید!"
                 document.getElementById('warnBirth').style.display = 'inline-block'
-            }
+            }else {document.getElementById('warnBirth').style.display = 'none'}
+
             if(this.password == ''){
                 document.getElementById('warnPassword').innerHTML = "رمز عبور خود را صحیح وارد کنید!"
                 document.getElementById('warnPassword').style.display = 'inline-block'
-            }else
+            }else 
             if(this.password.length < 6){
                 document.getElementById('warnPassword').innerHTML = "رمز عبور باید بیشتر از 6 کاراکتر باشد!"
                 document.getElementById('warnPassword').style.display = 'inline-block'
             }
-            else {
+            else {document.getElementById('warnPassword').style.display = 'none'}
+            
                 axios
                 .post("/register", {
                     username: this.username,
@@ -103,16 +108,14 @@ export default {
                     birthday: this.birthday,
                     phone_number: this.phone
                 })
-                .then((response) => {
-                    this.result = response
-                    this.userReg = true
+                .then(() => {
                 })
                 .catch(() => {
-                    this.userReg = false
                 });
 
                 sleep().then(() => { 
-                if(this.userReg){
+                if(this.username!='' && this.email!='' && this.firstname!='' && this.lastname!=''
+                   && this.phone != 0 && this.birthday!='' && this.password!='' && this.password > 6){
                     alert('ثبت نام شما با موفقیت انجام شد')
                     router.push('/profile')
                 }
@@ -121,7 +124,7 @@ export default {
                 function sleep() {
                     return new Promise(resolve => setTimeout(resolve, 500));
                 }
-            }
+
 
         }
     }
