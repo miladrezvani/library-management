@@ -69,35 +69,36 @@ export default {
             }else {document.getElementById('warnEmail').style.display = 'none'}
 
             if(this.firstname == ''){
-                document.getElementById('warnFirst').innerHTML = "نام خود را صحیح وارد کنید!"
+                document.getElementById('warnFirst').innerHTML = "نام خود را وارد کنید!"
                 document.getElementById('warnFirst').style.display = 'inline-block'
             }else {document.getElementById('warnFirst').style.display = 'none'}
 
             if(this.lastname == ''){
-                document.getElementById('warnLast').innerHTML = "نام خانوادگی خود را صحیح وارد کنید!"
+                document.getElementById('warnLast').innerHTML = "نام خانوادگی خود را وارد کنید!"
                 document.getElementById('warnLast').style.display = 'inline-block'
             }else {document.getElementById('warnLast').style.display = 'none'}
 
             if(this.phone == ''){
-                document.getElementById('warnPhone').innerHTML = "شماره تلفن خود را صحیح وارد کنید!"
+                document.getElementById('warnPhone').innerHTML = "شماره تلفن خود را وارد کنید!"
                 document.getElementById('warnPhone').style.display = 'inline-block'
             }else {document.getElementById('warnPhone').style.display = 'none'}
 
             if(this.birthday == ''){
-                document.getElementById('warnBirth').innerHTML = "تاریخ تولد خود را صحیح وارد کنید!"
+                document.getElementById('warnBirth').innerHTML = "تاریخ تولد خود را وارد کنید!"
                 document.getElementById('warnBirth').style.display = 'inline-block'
             }else {document.getElementById('warnBirth').style.display = 'none'}
 
             if(this.password == ''){
-                document.getElementById('warnPassword').innerHTML = "رمز عبور خود را صحیح وارد کنید!"
+                document.getElementById('warnPassword').innerHTML = "رمز عبور خود را وارد کنید!"
                 document.getElementById('warnPassword').style.display = 'inline-block'
             }else 
             if(this.password.length < 6){
                 document.getElementById('warnPassword').innerHTML = "رمز عبور باید بیشتر از 6 کاراکتر باشد!"
                 document.getElementById('warnPassword').style.display = 'inline-block'
-            }
-            else {document.getElementById('warnPassword').style.display = 'none'}
+            }else {document.getElementById('warnPassword').style.display = 'none'}
             
+            if(this.username!='' && this.email!='' && this.firstname!='' && this.lastname!=''
+                   && this.phone != 0 && this.birthday!='' && this.password!='' && this.password.length > 6){
                 axios
                 .post("/register", {
                     username: this.username,
@@ -114,18 +115,15 @@ export default {
                 });
 
                 sleep().then(() => { 
-                if(this.username!='' && this.email!='' && this.firstname!='' && this.lastname!=''
-                   && this.phone != 0 && this.birthday!='' && this.password!='' && this.password > 6){
                     alert('ثبت نام شما با موفقیت انجام شد')
                     router.push('/profile')
-                }
                 });
         
                 function sleep() {
                     return new Promise(resolve => setTimeout(resolve, 500));
                 }
 
-
+            }
         }
     }
 
